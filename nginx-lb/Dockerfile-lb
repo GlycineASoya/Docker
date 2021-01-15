@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+MAINTAINER ilevinsk
+
+COPY ./lb/default.conf /etc/nginx/conf.d

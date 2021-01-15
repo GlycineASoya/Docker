@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  dbagent:
+    image: ivlevinsky/dbagent-centos:${TAG}
+    #container_name: dbagent
+    networks:
+      - lab
+      - database
+    env_file:
+      - ./.env
+    restart: always
+    depends_on:
+      - mongo_db
+      - mongo_express_db
+
+  mongo_db: 
+    image: mongo:latest
+    networks:
+      - database
+    ports:
+      - 27017:27017
+      - 28017:28017
+    restart: always
+    env_file:
+      - mongo_db.env
+ 
+  mongo_express_db: 
+    image: mongo-express:latest
+    networks:
+      - database
+    ports:
+      - 8081:8081
+    restart: always
+    env_file:
+      - mongo_express_db.env
+    
+networks: 
+  database:
+    name: database
+    external: true
+  lab:
+    name: lab
+    external: true

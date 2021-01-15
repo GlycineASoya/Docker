@@ -1,0 +1,7 @@
+*
+!.gitignore
+![Dd]ockerfile*
+![Dd]ocker-c*
+!*.env
+!*.yaml
+!*/

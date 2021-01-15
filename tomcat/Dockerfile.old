@@ -1,0 +1,27 @@
+FROM debian:latest
+#From tomcat:8-jdk11
+
+#APPDYNAMICS ARGS
+#ARG AGENT_VERSION
+
+
+#ENV APPDYNAMICS_AGENT_VERSION=20.6.0.30246
+
+RUN apt update && \
+	apt install -y unzip && \
+	apt install -y default-jdk && \
+	apt clean && \
+	mkdir -p /usr/local/AppAgent
+#COPY ./JavaAgent/AppServerAgent-20.6.0.30246.zip /usr/local/AppAgent
+#COPY ./user-app/target/SampleServlet.war /usr/local/tomcat/webapps/
+#RUN cd /usr/local/AppAgent && unzip /usr/local/AppAgent/AppServerAgent-20.6.0.30246.zip
+
+
+#COPY ./Tomcat/catalina_appdynamics.sh /usr/local/tomcat/bin
+
+EXPOSE 8090
+#run chmod +x /usr/local/tomcat/bin/catalina_appdynamics.sh
+WORKDIR /usr/local/tomcat/bin/
+#ENTRYPOINT /usr/local/tomcat/bin/catalina_appdynamics.sh
+
+

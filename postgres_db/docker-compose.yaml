@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  dbagent:
+    image: ivlevinsky/dbagent-centos:4.5.15.1486
+    #container_name: dbagent
+    networks:
+      - lab
+      - database
+    environment:
+      - AGENT_OPTIONS="-Ddbagent.name=postgres"
+      - APPDYNAMICS_CONTROLLER_HOST_NAME=dotnetces.saas.appdynamics.com
+      - APPDYNAMICS_CONTROLLER_PORT=443
+      - APPDYNAMICS_CONTROLLER_SSL_ENABLED=true
+      - APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY=c3c80931-003b-4c1a-a863-df8b84b11e65
+      - APPDYNAMICS_AGENT_ACCOUNT_NAME=dotnetces
+    restart: always
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:latest
+    networks:
+      - database
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=database
+    restart: always
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    networks:
+      - database
+    restart: always
+    depends_on:
+      - postgres_db
+    ports:
+      - 5050:80
+
+networks:
+  lab:
+    name: lab
+  database:
+    name: database

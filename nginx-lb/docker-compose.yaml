@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web01:
+    image: nginx:latest
+    volumes:
+      - ./web01:/usr/share/nginx/html
+    networks:
+      - lb
+    expose:
+      - 80
+    restart: always
+  web02:
+    image: nginx:latest
+    volumes:
+      - ./web02:/usr/share/nginx/html
+    networks:
+      - lb
+    expose:
+      - 80
+    restart: always
+  lb:
+    build:
+      context: .
+      dockerfile: Dockerfile-lb
+    ports:
+      - 80:80
+    networks:
+      - lb
+    restart: always
+  client:
+    image: nginx:latest    
+    networks:
+      - lb
+
+networks:
+  lb:
+    name: lb
+    external: true

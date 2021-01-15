@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  controller:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+    user: root
+    ports: 
+      - 8090:8090
+      - 9191:9191
+      - 3388:3388
+      - 3700:3700
+      - 8181:8181
+      - 8021:8021
+      - 4848:4848
+      - 8020:8020
+    container_name: controller
+    volumes:
+      - controller:/usr/local/appdynamics
+    networks:
+      - lab
+    restart: always
+
+volumes:
+  controller:
+    name: controller
+
+networks:
+  lab:
+    name: lab
