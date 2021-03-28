@@ -2,6 +2,10 @@
 !.gitignore
 ![Dd]ockerfile*
 ![Dd]ocker-c*
+!Jenkins*
 !*.env
 !*.yaml
 !*/
+!*.pdf
+!*.md
+!*.py
