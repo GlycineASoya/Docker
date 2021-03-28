@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  controller:
+    build: .
+    user: root
+    stdin_open: true
+    tty: true
+    networks:
+      - ansible
+    depends_on:
+      - ansible1
+      - ansible2
+  ansible1:
+    image: centos:7
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "22" 
+    networks:
+      - ansible
+  ansible2:
+    image: centos:7
+    user: root
+    stdin_open: true
+    tty: true    
+    ports:
+      - 22
+    networks:
+      - ansible
+
+networks:
+  ansible:
+    name: ansible
+    external: yes

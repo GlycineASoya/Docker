@@ -1,0 +1,33 @@
+#GitLab
+#docker-compose.yaml
+version: '3'
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce
+    privileged: true
+    user: root
+    ports:
+      - 80:80
+      - 443:443
+      - 22:22
+    container_name: gitlab
+    volumes:
+      - gitlab:/etc/gitlab
+      - gitlab_data:/var/opt/gitlab
+    networks:
+      - lab
+    restart: always
+    #deploy:
+      #mode: replicated
+      #replicas: 2
+
+volumes:
+  gitlab:
+    name: gitlab
+  gitlab_data:
+    name: gitlab_data
+
+networks:
+  lab:
+    name: lab

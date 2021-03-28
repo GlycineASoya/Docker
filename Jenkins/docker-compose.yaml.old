@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  jenkins:
+    ports:
+      - "8080:8080"
+    image: jenkins
+    networks:
+      - overlay:jenkins
+    volumes:
+      - jenkins:/home/Docker/Jenkins/vol
+
+volumes:
+  jenkins:
+
+networks:
+  overlay:
