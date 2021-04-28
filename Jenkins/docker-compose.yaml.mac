@@ -1,0 +1,42 @@
+#Jeknins
+#docker-compose.yaml
+version: '3.9'
+
+services:
+  jenkins:
+    build:
+      context: .
+#    network_mode: "host"
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - jenkins:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ${DOCKER_PATH}:/usr/bin/docker:ro
+    #networks:
+    #  - lab
+    #networks:
+    #  hostnet: {}
+    restart: always
+    #extra_hosts:
+      #- host.docker.internal:192.168.0.1
+    #deploy:
+      #mode: replicated
+      #replicas: 2
+
+volumes:
+  jenkins:
+    name: jenkins
+
+networks:
+  lab:
+    external: true
+    name: lab
+  hostnet:
+    external: true
+    name: host
+    #driver: host
